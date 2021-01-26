@@ -6,7 +6,6 @@ import Cart from "./pages/Cart";
 
 function App() {
     const [pizzas, setPizzas]=useState([])
-    console.log(pizzas)
 
     useEffect(()=>{
         fetch('http://localhost:3000/db.json')
@@ -23,7 +22,7 @@ function App() {
             <div className="wrapper">
                 <Header/>
                 <div className="content">
-                    <Route path="/" component={Home} exact/>
+                    <Route path="/" render={()=><Home items={pizzas}/>} exact/>
                     <Route path="/cart" component={Cart}/>
                 </div>
             </div>

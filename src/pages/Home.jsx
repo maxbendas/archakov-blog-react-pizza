@@ -1,8 +1,10 @@
 import React from 'react';
 import Categories from "../components/Categories";
 import SortPopup from "../components/SortPopup";
+import PizzaBlock from "../components/PizzaBlock";
 
-const Home = () => {
+const Home = ({items}) => {
+    console.log(items)
     return (
         <div className="container">
             <div className="content__top">
@@ -16,7 +18,9 @@ const Home = () => {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-
+                {
+                    items.map(obj=><PizzaBlock key={obj.id} {...obj}/>)
+                }
             </div>
         </div>
     );
