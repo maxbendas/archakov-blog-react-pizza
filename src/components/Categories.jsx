@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
+import {useDispatch} from "react-redux";
+
 
 const Categories = ({items, onClickItem}) => {
 
     const [activeItem, setActiveItem] = useState(null)
 
-    const onSelectItem = (index)=>{
+
+    const onSelectItem = (index) => {
         setActiveItem(index)
+        onClickItem(index)
     }
 
     return (
@@ -18,7 +22,7 @@ const Categories = ({items, onClickItem}) => {
                 {items && items.map((name, index) => (
                     <li
                         className={activeItem === index ? "active" : ""}
-                        onClick={()=>onSelectItem(index)}
+                        onClick={() => onSelectItem(index)}
                         key={`${name}_${index}`}>{name}</li>
                 ))}
             </ul>
