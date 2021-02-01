@@ -6,16 +6,14 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 
-import {fetchPizzas, setPizzas} from "./redux/actions/pizzas";
+
 
 const App = () => {
 
-    const dispatch = useDispatch()
+
     const items = useSelector(state => state.pizzas.items);
 
-    useEffect(() => {
-       dispatch(setPizzas())
-    }, [])
+
 
     return (
         <div className="wrapper">
