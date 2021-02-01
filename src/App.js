@@ -15,9 +15,9 @@ const App = () => {
     const items = useSelector(state => state.pizzas.items);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/db.json')
-            .then((response) => {
-                dispatch(setPizzas(response.data.pizzas));
+        axios.get('http://localhost:3001/pizzas?_sort=price&_order=asc')
+            .then(({data}) => {
+                dispatch(setPizzas(data));
             })
     }, [])
 
