@@ -11,9 +11,9 @@ import LoadingPizzaBlock from "../components/PizzaBlock/LoadingPizzaBlock";
 const categoryNames = ['Мясные', 'Вегетарианская',
     'Гриль', 'Острые', 'Закрытые']
 
-const sortItems = [{name: 'популярности', type: 'popular'},
-    {name: 'цене', type: 'price'},
-    {name: 'алфавиту', type: 'alphabet'}]
+const sortItems = [{name: 'популярности', type: 'rating', order: 'desc'},
+    {name: 'цене', type: 'price', order: 'desc'},
+    {name: 'алфавиту', type: 'name', order: 'asc'}]
 
 const Home = () => {
     const dispatch = useDispatch()
@@ -43,14 +43,14 @@ const Home = () => {
                     items={categoryNames}/>
                 <SortPopup
                     onClickSortType={onSelectType}
-                    activeSortType={sortBy}
+                    activeSortType={sortBy.type}
                     items={sortItems}/>
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
                 {isLoaded
                     ? items.map(obj => <PizzaBlock key={obj.id} {...obj} />)
-                    :Array(12).fill(0).map((_,i)=><LoadingPizzaBlock key={i}/>)
+                    : Array(12).fill(0).map((_, i) => <LoadingPizzaBlock key={i}/>)
                 }
             </div>
         </div>

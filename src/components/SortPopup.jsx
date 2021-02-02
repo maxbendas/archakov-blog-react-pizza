@@ -4,11 +4,10 @@ import PropTypes from "prop-types";
 const SortPopup = ({activeSortType, items, onClickSortType}) => {
     const [visiblePopup, setVisiblePopup] = useState(false)
     const sortRef = useRef(null)
-    console.log(items.find(obj=>obj.type===activeSortType).name)
     const activeLabel = items.find(obj=>obj.type===activeSortType).name
 
-    const onSelectItem = (index)=>{
-        onClickSortType(index)
+    const onSelectItem = (obj)=>{
+        onClickSortType(obj)
         setVisiblePopup(false)
     }
 
@@ -50,7 +49,7 @@ const SortPopup = ({activeSortType, items, onClickSortType}) => {
                     {items && items.map((obj, index) => (
                         <li
                             className={activeSortType === obj.type ? "active" : ""}
-                            onClick={() => onSelectItem(obj.type)}
+                            onClick={() => onSelectItem(obj)}
                             key={`${obj.type}_${index}`}>{obj.name}</li>
                     ))}
                 </ul>
