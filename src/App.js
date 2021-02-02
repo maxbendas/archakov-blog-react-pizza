@@ -1,20 +1,13 @@
-import React, {useEffect, useState } from 'react'
+import React from 'react'
 import {Route} from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
 
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 
-
-
 const App = () => {
-
-
     const items = useSelector(state => state.pizzas.items);
-
-
-
     return (
         <div className="wrapper">
             <Header/>

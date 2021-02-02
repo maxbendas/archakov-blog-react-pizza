@@ -1,5 +1,5 @@
 const initialState ={
-    category:0,
+    category:null,
     sortBy:'popular'
 }
 const filters=(state=initialState, action)=>{
@@ -12,7 +12,6 @@ const filters=(state=initialState, action)=>{
             return {
                 ...state,
                 category: action.payload}
-
         default:
             return state
     }
