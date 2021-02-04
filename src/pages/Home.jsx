@@ -21,6 +21,7 @@ const Home = () => {
     const items = useSelector(({pizzas}) => pizzas.items);
     const isLoaded = useSelector(({pizzas}) => pizzas.isLoaded);
     const {category, sortBy} = useSelector(({filters}) => filters);
+    const cartItems = useSelector(({cart}) => cart.items);
 
     useEffect(() => {
         dispatch(fetchPizzas(category, sortBy))
@@ -34,7 +35,7 @@ const Home = () => {
         dispatch(setSortBy(type))
     }, [])
 
-    const handleAddPizzaToCart = (obj)=>{
+    const handleAddPizzaToCart = (obj) => {
         dispatch(addPizzaToCart(obj))
         console.log(obj)
     }
@@ -56,6 +57,7 @@ const Home = () => {
             <div className="content__items">
                 {isLoaded
                     ? items.map(obj => <PizzaBlock
+                        addedCount={cartItems[obj.id] && (cartItems[obj.id]).length}
                         onClickAddPizza={handleAddPizzaToCart}
                         key={obj.id} {...obj} />)
                     : Array(12).fill(0).map((_, i) => <LoadingPizzaBlock key={i}/>)

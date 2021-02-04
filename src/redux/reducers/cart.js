@@ -15,10 +15,12 @@ const cart = (state = initialState, action) => {
                         action.payload
                     ]
             }
+            const allPizzas = ([].concat.apply([], Object.values(newItems)))
             return {
                 ...state,
                 items: newItems,
-                totalCount: ([].concat.apply([], Object.values(newItems))).length
+                totalCount: allPizzas.length,
+                totalPrice: allPizzas.reduce((accum, item)=>accum+item.price, 0)
             }
         }
         default:
