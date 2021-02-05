@@ -4,7 +4,7 @@ const initialState = {
     totalCount: 0
 }
 
-const getTotalPrice = (arr)=>arr.reduce((accum, item) => accum + item.price, 0)
+const getTotalPrice = (arr) => arr.reduce((accum, item) => accum + item.price, 0)
 
 const cart = (state = initialState, action) => {
     switch (action.type) {
@@ -22,15 +22,48 @@ const cart = (state = initialState, action) => {
                 }
             }
 
-            const items = Object.values(newItems).map(obj=>obj.items)
-            const allPizzas = ([].concat.apply([], items))
+            const totalCount = Object.keys(newItems).reduce(
+                (sum, key) => newItems[key].items.length + sum, 0)
+
+            const totalPrice = Object.keys(newItems).reduce(
+                (sum, key) => newItems[key].totalPrice + sum, 0)
+
             return {
                 ...state,
                 items: newItems,
-                totalCount: allPizzas.length,
-                totalPrice: getTotalPrice(allPizzas)
+                totalCount,
+                totalPrice
             }
         }
+        case 'REMOVE_CART_ITEM': {
+            const newItems = {
+                ...state.items
+            }
+            const currentTotalPrice = newItems[action.payload].totalPrice
+            const currentTotalCount = newItems[action.payload].items.length
+            delete newItems[action.payload]
+            return {
+                ...state,
+                items: newItems,
+                totalPrice: state.totalPrice - currentTotalPrice,
+                totalCount: state.totalCount - currentTotalCount
+            }
+        }
+
+        case 'PLUS_CART_ITEM':
+            const newItems = [...state.items[action.payload].items, state.items[action.payload].items[0]]
+            const currentTotalPrice = newItems.totalPrice
+            return {
+                ...state,
+                items: {
+                    ...state.items,
+                    [action.payload]: {
+                        items: newItems
+                    }
+                },
+                totalPrice: state.totalPrice - currentTotalPrice,
+            }
+
         case 'CLEAR_CART':
             return initialState
         default:
